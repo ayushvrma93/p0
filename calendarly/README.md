@@ -36,3 +36,27 @@ Please fork this repository and reach out to Prakash when finished.
 ## Next Steps
 
 After submission, we will conduct a 30 to 60 minute code review in person. We will ask you about your thinking and design choices.
+
+## Supported Functional Requirements
+- Setting up own availability.
+- Showing own availability.
+
+[//]: # (- A user can make some of their own time slots as un-blockable.)
+- Finding overlap in schedule between 2 users.
+- See availability of users(max 5), using email id for next n-days.
+- Book a meeting.
+- If a person's slot is already booked for a given time slot, we can still book it, provided the slot is not marked as "unblockable"
+
+[//]: # (## Assumptions:)
+
+[//]: # (- )
+
+## Constraints
+- A meeting can have max 5 invitees.
+- We will not support recurring meetings(as a part of MVP).
+- We will support viewing of meetings up-to next 3 months.
+- We will support only one timezone. 
+
+## Improvements
+- Instead of setting up own availability, we can set up blocked time and all other slots are open by default.
+

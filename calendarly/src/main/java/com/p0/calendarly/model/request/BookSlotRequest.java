@@ -4,7 +4,7 @@ import com.p0.calendarly.model.User;
 import lombok.Data;
 import lombok.NonNull;
 
-import java.util.List;
+import java.sql.Timestamp;
 
 @Data
 public class BookSlotRequest {
@@ -20,5 +20,13 @@ public class BookSlotRequest {
     private String description;
 
     @NonNull
-    List<User> participants;
+    User otherParticipant;
+
+    @NonNull
+    private Timestamp startTime;
+
+    @NonNull
+    private Timestamp endTime;
+
+
 }

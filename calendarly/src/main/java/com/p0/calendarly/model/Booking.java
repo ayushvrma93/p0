@@ -1,15 +1,20 @@
 package com.p0.calendarly.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.p0.calendarly.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bookings")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +31,13 @@ public class Booking {
     private String name;
     private String description;
 
-    @ManyToMany
+    @ManyToOne
     @JoinTable(
             name = "booking_participants",
             joinColumns = @JoinColumn(name = "booking_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> participants;
+    private User otherParticipant;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -41,64 +46,51 @@ public class Booking {
     @Version
     private Long version;
 
+    private Timestamp startTime;
+
+    private Timestamp endTime;
+
+    private Booking(){}
+
     private Booking(Builder builder) {
-        this.availability = builder.availability;
         this.bookedBy = builder.bookedBy;
         this.status = builder.status;
         this.name = builder.name;
         this.description = builder.description;
-        this.participants = builder.participants;
+        this.otherParticipant = builder.otherParticipant;
+        this.startTime = builder.startTime;
+        this.endTime = builder.endTime;
     }
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public Availability getAvailability() {
-//        return availability;
-//    }
-//
-//    public User getBookedBy() {
-//        return bookedBy;
-//    }
-//
-//    public BookingStatus getStatus() {
-//        return status;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public List<User> getParticipants() {
-//        return participants;
-//    }
-//
-//    public Long getVersion() {
-//        return version;
-//    }
-//
-//    public void setStatus(BookingStatus status) {
-//        this.status = status;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return Objects.equals(id, booking.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     // Static nested Builder class
     public static class Builder {
-        private Availability availability;
         private User bookedBy;
         private BookingStatus status;
         private String name;
         private String description;
-        private List<User> participants = new ArrayList<>();
+        private User otherParticipant;
 
-        public Builder setAvailability(Availability availability) {
-            this.availability = availability;
-            return this;
-        }
+        private Timestamp startTime;
+
+        private Timestamp endTime;
+
+//        public Builder setAvailability(Availability availability) {
+//            this.availability = availability;
+//            return this;
+//        }
 
         public Builder setBookedBy(User bookedBy) {
             this.bookedBy = bookedBy;
@@ -120,13 +112,23 @@ public class Booking {
             return this;
         }
 
-        public Builder setParticipants(List<User> participants) {
-            this.participants = participants;
+        public Builder setOtherParticipant(User participant) {
+            this.otherParticipant = participant;
             return this;
         }
 
         public Builder addParticipant(User participant) {
-            this.participants.add(participant);
+            this.otherParticipant = participant;
+            return this;
+        }
+
+        public Builder setStartTime(Timestamp startTime){
+            this.startTime = startTime;
+            return this;
+        }
+
+        public Builder setEndTime(Timestamp endTime){
+            this.endTime = endTime;
             return this;
         }
 

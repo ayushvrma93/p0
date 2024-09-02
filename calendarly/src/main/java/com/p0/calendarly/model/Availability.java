@@ -1,5 +1,6 @@
 package com.p0.calendarly.model;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.persistence.Id;
@@ -10,7 +11,9 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "availabilities")
+@Table(name = "availabilities",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "start_time", "end_time"})})
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Availability {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,18 +24,16 @@ public class Availability {
     private User user;
     private Timestamp startTime;
     private Timestamp endTime;
-    private boolean isBlockable;
 
     @OneToMany(mappedBy = "availability", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Booking> bookings = new ArrayList<>();
-
 
     public static class Builder {
 
         private User user;
         private Timestamp startTime;
         private Timestamp endTime;
-        private boolean isBlockable = true;
 
         private List<Booking> bookings = new ArrayList<>();
 
@@ -51,11 +52,6 @@ public class Availability {
             return this;
         }
 
-        public Builder setBlockable(boolean isBlockable) {
-            this.isBlockable = isBlockable;
-            return this;
-        }
-
         public Builder setBooking(Booking booking){
             this.bookings.add(booking);
             return this;
@@ -65,7 +61,7 @@ public class Availability {
             Availability availability = new Availability();
             availability.setStartTime(startTime);
             availability.setEndTime(endTime);
-            availability.setBlockable(isBlockable);
+            availability.setUser(user);
             return availability;
         }
     }

@@ -45,7 +45,7 @@ After submission, we will conduct a 30 to 60 minute code review in person. We wi
 - Finding overlap in schedule between 2 users.
 - See availability of users(max 5), using email id for next n-days.
 - Book a meeting.
-- If a person's slot is already booked for a given time slot, we can still book it, provided the slot is not marked as "unblockable"
+- If a person's slot is already booked for a given time slot, we can still book it, the respondee has to decide which booking they have to entertain.
 
 [//]: # (## Assumptions:)
 

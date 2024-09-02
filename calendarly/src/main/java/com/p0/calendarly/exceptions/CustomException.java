@@ -1,11 +1,17 @@
 package com.p0.calendarly.exceptions;
 
-public class CustomException extends Exception {
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+@ControllerAdvice
+public class CustomException extends RuntimeException {
+
+    CustomException() {}
     public CustomException(String message) {
         super(message);
     }
 
-    CustomException(String message, Throwable cause){
+    public CustomException(String message, Throwable cause){
         super(message, cause);
     }
 }

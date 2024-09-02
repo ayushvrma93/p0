@@ -87,11 +87,6 @@ public class Booking {
 
         private Timestamp endTime;
 
-//        public Builder setAvailability(Availability availability) {
-//            this.availability = availability;
-//            return this;
-//        }
-
         public Builder setBookedBy(User bookedBy) {
             this.bookedBy = bookedBy;
             return this;

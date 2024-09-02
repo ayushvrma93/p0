@@ -23,7 +23,6 @@ public class BookingService {
     @Autowired
     private AvailabilityService availabilityService;
 
-//    @Transactional
     public Booking create(BookSlotRequest bookSlotRequest, User bookedBy) throws CustomException {
         Optional<Availability> availabilityOptional = availabilityService.findById(bookSlotRequest.getAvailabilityId());
 
@@ -33,11 +32,11 @@ public class BookingService {
 
         Availability availability = availabilityOptional.get();
 
-        BookingServiceHelper.verifyTimings(availability, bookSlotRequest);
-        BookingServiceHelper.verifyUser(availability, bookSlotRequest);
+        BookingServiceHelper.verifyRequest(availability, bookSlotRequest);
 
         List<Booking> existingBookings = availability.getBookings();
 
+        //checking if the same user has created another booking against the same availability id
         for(Booking booking : existingBookings){
             if(booking.getBookedBy().equals(bookedBy)){
                 throw new CustomException("Booking already exists");
@@ -57,8 +56,6 @@ public class BookingService {
 
         availability.getBookings().add(booking);
         booking = bookingRepository.save(booking);
-//        availability.setBookings();
-//        availabilityService.addBooking(existingBookings, booking, availability);
         availabilityService.update(availability);
         return booking;
     }

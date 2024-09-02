@@ -24,7 +24,11 @@ public class AvailabilityService {
     @Autowired
     private ScheduleOverlapContext overlapContext;
 
-    public Availability createAvailability(User user, Timestamp startTime, Timestamp endTime) {
+    public Availability createAvailability(User user, Timestamp startTime, Timestamp endTime) throws CustomException {
+        if(startTime.before(Timestamp.from(Instant.now())) || endTime.before(Timestamp.from(Instant.now()))){
+            throw new CustomException("Timestamp can not be in ths past");
+        }
+
         Availability availability = new Availability.Builder()
                 .setStartTime(startTime)
                 .setEndTime(endTime)
@@ -45,13 +49,6 @@ public class AvailabilityService {
         }
         return availabilityRepository.findByUserIdAndStartTimeBetween(userId, startTimestamp, endTimestamp);
     }
-
-//    public void addBooking(List<Booking> bookings, Booking booking, Availability availability) {
-//        if (!bookings.contains(booking)) {
-//            bookings.add(booking);
-//            booking.setAvailability(availability); // Set the availability on the booking
-//        }
-//    }
 
     public Optional<Availability> findById(Long id){
         return availabilityRepository.findById(id);

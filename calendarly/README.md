@@ -43,7 +43,7 @@ After submission, we will conduct a 30 to 60 minute code review in person. We wi
 
 [//]: # (- A user can make some of their own time slots as un-blockable.)
 - Finding overlap in schedule between 2 users.
-- See availability of users(max 5), using email id for next n-days.
+- See availability of users, using email id for given start and end time range.
 - Book a meeting.
 - If a person's slot is already booked for a given time slot, we can still book it, the respondee has to decide which booking they have to entertain.
 
@@ -52,9 +52,10 @@ After submission, we will conduct a 30 to 60 minute code review in person. We wi
 [//]: # (- )
 
 ## Constraints
-- A meeting can have max 5 invitees.
+- A meeting must have exactly 2 people.
 - We will not support recurring meetings(as a part of MVP).
-- We will support viewing of meetings up-to next 3 months.
+
+[//]: # (- We will support viewing of meetings up-to next 3 months.)
 - We will support only one timezone. 
 
 ## Improvements

@@ -20,7 +20,7 @@ public class BookSlotRequest {
     private String description;
 
     @NonNull
-    User otherParticipant;
+    Long otherParticipantId;
 
     @NonNull
     private Timestamp startTime;

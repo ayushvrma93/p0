@@ -21,14 +21,11 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @Autowired
-    private UserService userService;
 
     @PostMapping("")
     public ResponseEntity<?> create(@Valid @RequestBody BookSlotRequest request) throws CustomException {
         try{
-            User user = userService.findById(request.getUserId());
-            return ResponseEntity.ok(bookingService.create(request, user));
+            return ResponseEntity.ok(bookingService.create(request));
         } catch (CustomException c){
             return ResponseEntity.badRequest().body(c.getMessage());
         }

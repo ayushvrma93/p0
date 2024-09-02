@@ -23,7 +23,10 @@ public class BookingService {
     @Autowired
     private AvailabilityService availabilityService;
 
-    public Booking create(BookSlotRequest bookSlotRequest, User bookedBy) throws CustomException {
+    @Autowired
+    private UserService userService;
+
+    public Booking create(BookSlotRequest bookSlotRequest) throws CustomException {
         Optional<Availability> availabilityOptional = availabilityService.findById(bookSlotRequest.getAvailabilityId());
 
         if (availabilityOptional.isEmpty()) {
@@ -32,23 +35,19 @@ public class BookingService {
 
         Availability availability = availabilityOptional.get();
 
-        BookingServiceHelper.verifyRequest(availability, bookSlotRequest);
+        User bookedBy = userService.findById(bookSlotRequest.getUserId());
+        User otherParticipant = userService.findById(bookSlotRequest.getOtherParticipantId());
+
 
         List<Booking> existingBookings = availability.getBookings();
-
-        //checking if the same user has created another booking against the same availability id
-        for(Booking booking : existingBookings){
-            if(booking.getBookedBy().equals(bookedBy)){
-                throw new CustomException("Booking already exists");
-            }
-        }
+        BookingServiceHelper.verifyRequest(availability, bookSlotRequest, existingBookings, bookedBy);
 
         Booking booking = new Booking.Builder()
                 .setBookedBy(bookedBy)
                 .setStatus(BookingStatus.PENDING)
                 .setName(bookSlotRequest.getName())
                 .setDescription(bookSlotRequest.getDescription())
-                .setOtherParticipant(bookSlotRequest.getOtherParticipant())
+                .setOtherParticipant(otherParticipant)
                 .setStartTime(bookSlotRequest.getStartTime())
                 .setEndTime(bookSlotRequest.getEndTime())
                 .build();

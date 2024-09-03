@@ -50,13 +50,16 @@ After submission, we will conduct a 30 to 60 minute code review in person. We wi
 [//]: # (- )
 
 ## Constraints
-- A meeting must have exactly 2 people.
+- A meeting must have exactly 2 users.
 - We will not support recurring meetings(as a part of MVP).
 - We will support only one timezone.
 
 ## Improvements
 - Instead of setting up own availability, we can set up blocked time and all other slots are open by default.
 - We should write unit tests for better code testing.
+
+## Clarifications
+- Since a single availability slot can be booked by multiple people, it is not required to be thread safe.
 
 ## How to Run 
 This application can be run by following the below steps:

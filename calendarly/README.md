@@ -41,23 +41,28 @@ After submission, we will conduct a 30 to 60 minute code review in person. We wi
 - Setting up own availability.
 - Showing own availability.
 
-[//]: # (- A user can make some of their own time slots as un-blockable.)
 - Finding overlap in schedule between 2 users.
-- See availability of users, using email id for given start and end time range.
+- See availability of users, using user id for given start and end time range.
 - Book a meeting.
-- If a person's slot is already booked for a given time slot, we can still book it, the respondee has to decide which booking they have to entertain.
-
-[//]: # (## Assumptions:)
+- The availability owner can accept or decline a booking.
+- If a person's slot is already booked for a given time slot, we can still book it, the availability owner has to decide which booking they have to entertain.
 
 [//]: # (- )
 
 ## Constraints
 - A meeting must have exactly 2 people.
 - We will not support recurring meetings(as a part of MVP).
-
-[//]: # (- We will support viewing of meetings up-to next 3 months.)
-- We will support only one timezone. 
+- We will support only one timezone.
 
 ## Improvements
 - Instead of setting up own availability, we can set up blocked time and all other slots are open by default.
+- We should write unit tests for better code testing.
 
+## How to Run 
+This application can be run by following the below steps:
+  - Create the jar file by running: 
+    - mvn clean package
+  - This will create a jar file under the target directory.
+  - The project has Dockerfile and docker-compose. It can be run by the below command:
+    - docker-compose up
+  - You can now hit the APIs using postman at localhost:8080

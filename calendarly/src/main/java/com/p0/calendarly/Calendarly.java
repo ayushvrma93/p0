@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.p0.calendarly.repository")
-public class CalendarlyApplication {
+public class Calendarly {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CalendarlyApplication.class, args);
+		SpringApplication.run(Calendarly.class, args);
 	}
 
 }

@@ -21,7 +21,7 @@ public class BookingServiceHelper {
     public static void verifyRequest(Availability availability, BookSlotRequest request, List<Booking> existingBookings
         , User bookedBy) throws CustomException{
         verifyTimings(availability, request);
-        verifyUser(availability, request);
+        verifyUsers(availability, request);
         verifyBooking(existingBookings, bookedBy);
     }
 
@@ -33,9 +33,12 @@ public class BookingServiceHelper {
         }
     }
 
-    private static void verifyUser(Availability availability, BookSlotRequest request){
+    private static void verifyUsers(Availability availability, BookSlotRequest request){
         if(!availability.getUser().getId().equals(request.getUserId())){
             throw new CustomException("Availability and booking users are different");
+        }
+        if(request.getUserId().equals(request.getOtherParticipantId())){
+            throw new CustomException("Both participants can not be same");
         }
     }
 

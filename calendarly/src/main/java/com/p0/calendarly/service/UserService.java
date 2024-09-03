@@ -16,7 +16,7 @@ public class UserService {
     @Transactional
     public User createUser(CreateUserRequest request) throws CustomException {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new CustomException("User with " + request.getEmail() + " already exists");
+            throw new CustomException("User with id: " + request.getEmail() + " already exists");
         }
 
         User user = new User.Builder()
@@ -27,11 +27,11 @@ public class UserService {
 
     public User findById(Long id) throws CustomException {
         return userRepository.findById(id)
-                .orElseThrow(() -> new CustomException("User with "+ id + " not found"));
+                .orElseThrow(() -> new CustomException("User with id: "+ id + " not found"));
     }
 
     public User findByEmail(String email) throws CustomException {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new CustomException("User with "+ email + " not found"));
+                .orElseThrow(() -> new CustomException("User with email: "+ email + " not found"));
     }
 }

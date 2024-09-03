@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the application JAR file to the container
-COPY target/your-application-name.jar app.jar
+COPY target/calendarly-0.0.1-SNAPSHOT.jar app.jar
 
 # Give execution permissions to the JAR file
 RUN chmod +x app.jar

@@ -21,11 +21,11 @@ public class AvailabilityController {
     private UserService userService;
 
     @PostMapping("/user/{userId}")
-    public ResponseEntity<?> createAvailability(@RequestBody AvailabilityRequest request,
-                                             @PathVariable Long userId) throws CustomException {
+    public ResponseEntity<?> create(@RequestBody AvailabilityRequest request,
+                                    @PathVariable Long userId) throws CustomException {
         try{
             User user = userService.findById(userId);
-            return ResponseEntity.ok(availabilityService.createAvailability(user, request.getStartTime(), request.getEndTime()));
+            return ResponseEntity.ok(availabilityService.create(user, request.getStartTime(), request.getEndTime()));
         } catch (CustomException c){
             return ResponseEntity.badRequest().body(c.getMessage());
         }
@@ -43,10 +43,12 @@ public class AvailabilityController {
     }
 
     @GetMapping("/overlap")
-    public ResponseEntity<?> getOverlappingAvailability(@RequestParam Long requestingUserId,
-                                                          @RequestParam Long requestedUserId){
+    public ResponseEntity<?> getOverlappingAvailabilities(@RequestParam Long requestingUserId,
+                                                          @RequestParam Long requestedUserId,
+                                                          @RequestParam("startTime") String startTime,
+                                                          @RequestParam("endTime") String endTime){
         try{
-            return ResponseEntity.ok(availabilityService.findOverlappingSlots(requestingUserId, requestedUserId));
+            return ResponseEntity.ok(availabilityService.findOverlappingSlots(requestingUserId, requestedUserId, startTime, endTime));
         } catch (CustomException c){
             return ResponseEntity.badRequest().body(c.getMessage());
         }

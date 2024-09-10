@@ -57,6 +57,11 @@ After submission, we will conduct a 30 to 60 minute code review in person. We wi
 ## Improvements
 - Instead of setting up own availability, we can set up blocked time and all other slots are open by default.
 - We should write unit tests for better code testing.
+- We should do dependency injection via constructor rather than field DI, for mocking.
+
+## Next Requirements
+- We should support more than 2 people in the meeting.
+- We can add support for recurring meetings.
 
 ## Clarifications
 - Since a single availability slot can be booked by multiple people, it is not required to be thread safe.

@@ -6,6 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CalendarlyTests {
 
+	/**
+	 * Test to verify that the Spring application context loads successfully.
+	 */
 	@Test
 	void contextLoads() {
 	}

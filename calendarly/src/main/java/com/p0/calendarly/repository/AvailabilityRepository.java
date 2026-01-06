@@ -15,8 +15,6 @@ public interface AvailabilityRepository extends JpaRepository<Availability, Long
 
     Availability save(Availability availability);
 
-    List<Availability> findByUserId(Long userId);
-
     @Modifying
     @Query(value = "UPDATE availability SET bookings = :bookings WHERE id = :id", nativeQuery = true)
     int updateBookings(@Param("bookings") List<Booking> bookings, @Param("id") Long availabilityId);

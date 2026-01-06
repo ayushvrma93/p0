@@ -38,16 +38,6 @@ public class BookingController {
 
     }
 
-    @DeleteMapping("{id}/decline")
-    public ResponseEntity<?> decline(@PathVariable("id") Long id) throws BookingNotFoundException {
-        try{
-            bookingService.updateStatus(id, BookingStatus.DECLINED);
-            return ResponseEntity.ok().build();
-        } catch (BookingNotFoundException b){
-            return ResponseEntity.badRequest().body(b.getMessage());
-        }
-    }
-
     @PutMapping("{id}/accept")
     public ResponseEntity<?> accept(@PathVariable("id") Long id) throws BookingNotFoundException {
         try{

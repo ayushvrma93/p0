@@ -48,7 +48,9 @@ public class AvailabilityController {
                                                           @RequestParam("startTime") String startTime,
                                                           @RequestParam("endTime") String endTime){
         try{
-            return ResponseEntity.ok(availabilityService.findOverlappingSlots(requestingUserId, requestedUserId, startTime, endTime));
+            return ResponseEntity.ok(availabilityService.findOverlappingSlots(
+                    requestingUserId, requestedUserId, startTime, endTime
+            ));
         } catch (CustomException c){
             return ResponseEntity.badRequest().body(c.getMessage());
         }

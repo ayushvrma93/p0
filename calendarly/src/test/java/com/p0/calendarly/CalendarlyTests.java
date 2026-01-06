@@ -5,9 +5,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class CalendarlyTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+	// Integration tests can be added here
 }
